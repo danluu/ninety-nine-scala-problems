@@ -113,7 +113,11 @@ class ListsSuite extends FunSuite {
     //TODO: come up with a method of testing random selection 
   }
   
-  test("P25 -- combinations"){
+  test("P25 -- randomPermute"){
+    //TODO: come up with a method of testing random selection 
+  }
+  
+  test("P26 -- combinations"){
     val c1 = combinations(1, List('a,'b,'c))
     val a1 = List(List('a), List('b), List('c))
     assert(c1.length == a1.length && c1.toSet == a1.toSet)
@@ -130,5 +134,13 @@ class ListsSuite extends FunSuite {
                                                    ('b, 'e, 'f), List('c, 'd, 'e), List('c, 'd, 'f), List('c, 'e, 'f), List(
                                                    'd, 'e, 'f))
     assert(c3.length == a3.length && c3.toSet == a3.toSet)                                                                                               
+  }
+  
+  test("P27 -- disjoint subets"){
+    assert(1 == 0) //TODO: can't think of a non-hacky way to do this atm.
+  }
+  
+  test("P28 -- sort list based on length"){
+     assert(lsort(List(List('a, 'b, 'c), List('d, 'e), List('f, 'g, 'h), List('d, 'e), List('i, 'j, 'k, 'l), List('m, 'n), List('o))) == List(List('o), List('d, 'e), List('d, 'e), List('m, 'n), List('a, 'b, 'c), List('f, 'g, 'h), List('i, 'j, 'k, 'l)))
   }
 }

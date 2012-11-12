@@ -84,8 +84,19 @@ object Lists{
 	
 	def randomPermute[A](xs: List[A]) = randomSelect(xs.length, xs)
 	
-	//TODO: don't use builtin
 	def combinations[A](i: Int, xs: List[A]): List[List[A]]={
 	  xs.combinations(i).toList
 	}
+	
+	def combinationsNoBuiltin[A](i: Int, xs: List[A]): List[List[A]] = {
+      val s = xs.size
+      if (i == 0) List(Nil)
+      else if (i > s) Nil
+      else if (i == s) List(xs)
+      else combinationsNoBuiltin(i-1, xs.tail).map(xs.head :: _) ::: combinations(i, xs.tail)
+    }
+	
+	//TODO: can only think of a hack-y way to do P27 at the moment. Come back and do it later
+	
+	def lsort[A](xs: List[List[A]]): List[List[A]] = xs.sortBy(_.length)
 }
