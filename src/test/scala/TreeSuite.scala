@@ -14,7 +14,7 @@ class TreeSuite extends FunSuite {
     
   }
   
-  test("P66 - isSymmetric"){
+  test("P56 - isSymmetric"){
     assert(Node('a', Node('b'), Node('c')).isSymmetric == true)
     assert(Node('a', End, Node('c')).isSymmetric == false)
     assert(Node('a', Node('b'), End).isSymmetric == false)
@@ -28,17 +28,17 @@ class TreeSuite extends FunSuite {
     assert(Node('x,lft,lft).isSymmetric == false)
   }
   
-  test("P67 - (unbalanced) binary search tree"){
+  test("P57 - (unbalanced) binary search tree"){
     assert(End.addValue(2).addValue(3).addValue(0) == Node(2,Node(0),Node(3)))
     assert(Tree.fromList(List(3, 2, 5, 7, 1)) == Node(3,Node(2,Node(1),End),Node(5,End,Node(7))))
   }
   
-  test("P66 + P67"){
+  test("P56 + P57"){
     assert(Tree.fromList(List(5, 3, 18, 1, 4, 12, 21)).isSymmetric == true)
     assert(Tree.fromList(List(3, 2, 5, 7, 4)).isSymmetric == false)
   }
   
-  test("P68 - symmetric completely balanced binary trees"){
+  test("P58 - symmetric completely balanced binary trees"){
     val l = Tree.symmetricBalancedTrees(5, 'x)
     assert(l.length == 2)
     assert(l.toSet == Set(Node('x,Node('x,Node('x),End),Node('x,End,Node('x))), Node('x,Node('x,End,Node('x)),Node('x,Node('x),End))))
@@ -54,5 +54,69 @@ class TreeSuite extends FunSuite {
      // test for large numbers, though
   }
   
+  test("P59 - all height balanced trees, given height"){
+    assert(Tree.hbalTrees(1, 'a) == List(Node('a)))
+    assert(Tree.hbalTrees(2, 'c) == List(Node('c,Node('c),Node('c)), Node('c,Node('c),End), Node('c,End,Node('c))))
+    assert(Tree.hbalTrees(3, 'd).length == 15)
+    assert(Tree.hbalTrees(4, 'e).length == 315)
+  }
   
+  test("P60 - number of height balanced trees, given number of nodes"){
+    //helper functions
+    assert(Tree.minHbalNodes(3) == 4)
+    assert(Tree.maxHbalHeight(4) == 3)
+    assert(Tree.minHbalHeight(1) == 1)
+    assert(Tree.minHbalHeight(2) == 2)
+    assert(Tree.minHbalHeight(3) == 2)
+    assert(Tree.minHbalHeight(4) == 3)
+    assert(Tree.minHbalHeight(7) == 3)
+    assert(Tree.minHbalHeight(8) == 4)
+    assert(Node('a).size == 1)
+    assert(Node('b,Node('b),End).size == 2)
+    assert(Node('c,Node('c),Node('c)).size == 3)
+    
+    assert(Tree.hbalTreesWithNodes(1, 'a) == List(Node('a)))
+    
+    val hbalTrees2 = Tree.hbalTreesWithNodes(2, 'a)
+    assert(hbalTrees2.length == 2)
+    assert(hbalTrees2.toSet == Set(Node('a,Node('a),End), Node('a,End,Node('a))))
+    
+    assert(Tree.hbalTreesWithNodes(3, 'a) == List(Node('a,Node('a),Node('a))))
+    
+    val hbalTrees4 = Tree.hbalTreesWithNodes(4, 'd)
+    assert(hbalTrees4.length == 4)
+    assert(hbalTrees4.toSet == Set(Node('d,Node('d,Node('d),End),Node('d)), Node('d,Node('d),Node('d,Node('d),End)), Node('d,Node('d,End,Node('d)) ,Node('d)), Node('d,Node('d),Node('d,End,Node('d)))))
+    
+    //TODO: write tests for higher numbers of nodes. It should be easy to figure how many trees satisfy the criteria
+  }
+  
+  test("P61 - leafCount"){
+    assert(Node('x', Node('x'), End).leafCount == 1)
+    assert(Node('x', Node('x'), Node('x')).leafCount == 2)
+  }
+  
+  test("P61A - leafList"){
+    assert((Node('a, Node('b), Node('c, Node('d), Node('e))).leafList == List('b, 'd, 'e)))
+  }
+  
+  test("P62 - internalList"){
+    assert(Node('a, Node('b), Node('c, Node('d), Node('e))).internalList == List('a, 'c))
+  }
+  
+  test("P62B - atLevel"){
+    assert(Node('a, Node('b), Node('c, Node('d), Node('e))).atLevel(1) == List('a))
+    assert(Node('a, Node('b), Node('c, Node('d), Node('e))).atLevel(2) == List('b, 'c))
+    assert(Node('a, Node('b), Node('c, Node('d), Node('e))).atLevel(3) == List('d, 'e))
+  }
+  
+  test("P63 - completeBinaryTree"){
+    assert(Tree.completeBinaryTree(6, 'x) == Node('x,Node('x,Node('x),Node('x)),Node('x,Node('x),End)))
+  }
+  
+  //TODO: go back and do the binary tree layout questions
+  // 64 is done and needs a test. Skipping 65 and 66
+  
+  test("P67 - toString alternative"){
+    assert(Node('a', Node('b', Node('d'), Node('e')), Node('c', End, Node('f', Node('g'), End))).toString67 == "a(b(d,e),c(,f(g,)))")
+  }
 }
