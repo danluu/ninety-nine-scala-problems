@@ -13,6 +13,8 @@ package ninetynine {
     def layoutBinaryTree: Tree[T] = layoutBinaryTreeHelper(1, 1)._1
     def layoutBinaryTreeHelper(x: Int, y: Int): (Tree[T], Int)
     def toString67: String
+    def preOrder: List[T]
+    def inOrder: List[T]
   }
 
   case class Node[+T](value: T, left: Tree[T], right: Tree[T]) extends Tree[T] {
@@ -67,6 +69,9 @@ package ninetynine {
       val (rightHelper, rightX) = right.layoutBinaryTreeHelper(leftX+1, 1+y)
       (PositionedNode(value, leftHelper, rightHelper, leftX, y),rightX)
       }
+    
+    override def preOrder = value :: left.preOrder ::: right.preOrder
+    override def inOrder = left.inOrder ::: value :: right.inOrder
   }
   
   //case class inheritance is deprecated, but the problem seems to specify that we use it
@@ -88,6 +93,8 @@ package ninetynine {
     override def layoutBinaryTreeHelper(x: Int, y: Int): (Tree[Nothing], Int) =
       (End, x)
     override def toString67 = ""
+    override def preOrder = Nil
+    override def inOrder = Nil
   }
 
   object Node {

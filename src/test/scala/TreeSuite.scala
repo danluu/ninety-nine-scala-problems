@@ -11,7 +11,6 @@ class TreeSuite extends FunSuite {
     assert(Tree.cBalanced(1,'a) == List(Node('a)))
     assert(Tree.cBalanced(2,'b) == List(Node('b,Node('b),End), Node('b,End,Node('b))))
     assert(Tree.cBalanced(3,'c) == List(Node('c,Node('c),Node('c))))
-    
   }
   
   test("P56 - isSymmetric"){
@@ -116,7 +115,14 @@ class TreeSuite extends FunSuite {
   //TODO: go back and do the binary tree layout questions
   // 64 is done and needs a test. Skipping 65 and 66
   
-  test("P67 - toString alternative"){
+  test("P67 - toString alternative and fromString"){
     assert(Node('a', Node('b', Node('d'), Node('e')), Node('c', End, Node('f', Node('g'), End))).toString67 == "a(b(d,e),c(,f(g,)))")
+    assert(Tree.fromString("a(b(d,e),c(,f(g,)))") == 
+      Node("a",Node("b",Node("d"),Node("e")),Node("c",End,Node("f",Node("g"),End))))
+  }
+  
+  test("P68 - preorder and inorder traversals"){
+    assert(Tree.fromString("a(b(d,e),c(,f(g,)))").preOrder == List("a", "b", "d", "e", "c", "f", "g")) 
+    assert(Tree.fromString("a(b(d,e),c(,f(g,)))").inOrder ==  List("d", "b", "e", "a", "c", "g", "f"))
   }
 }
