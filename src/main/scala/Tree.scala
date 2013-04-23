@@ -10,8 +10,8 @@ package ninetynine {
     def leafList: List[T]
     def internalList: List[T]
     def atLevel(level: Int): List[T]
-    def layoutBinaryTree: Tree[T] = layoutBinaryTreeHelper(1, 1)._1
-    def layoutBinaryTreeHelper(x: Int, y: Int): (Tree[T], Int)
+//    def layoutBinaryTree: Tree[T] = layoutBinaryTreeHelper(1, 1)._1
+//    def layoutBinaryTreeHelper(x: Int, y: Int): (Tree[T], Int)
     def toString67: String
     def preOrder: List[T]
     def inOrder: List[T]
@@ -61,6 +61,14 @@ package ninetynine {
       if (level <= 0) Nil
       else if (level == 1) List(value)
       else left.atLevel(level-1) ++ right.atLevel(level-1)
+
+    override def preOrder = value :: left.preOrder ::: right.preOrder
+    override def inOrder = left.inOrder ::: value :: right.inOrder
+  }
+
+
+    /* case class inheritance is illegal in 2.10, but the problem actually specifies this class structure. Use scala 2.9.1 if you want to solve this problem */
+    /*
     
     //x is the inorder traversal number, so it must be incremented each time we've finished a left traversal
     //and are about to start a right traversal
@@ -70,15 +78,12 @@ package ninetynine {
       (PositionedNode(value, leftHelper, rightHelper, leftX, y),rightX)
       }
     
-    override def preOrder = value :: left.preOrder ::: right.preOrder
-    override def inOrder = left.inOrder ::: value :: right.inOrder
   }
   
-  //case class inheritance is deprecated, but the problem seems to specify that we use it
   case class PositionedNode[T](override val value: T, override val left: Tree[T], override val right: Tree[T], x: Int, y: Int) extends 
     Node(value, left, right){
       override def toString =  "T[" + x.toString + "," + y.toString + "](" + value.toString + " " + left.toString + " " + right.toString + ")"
-  }
+   */
 
   case object End extends Tree[Nothing] {
     override def toString = "End"
@@ -90,8 +95,8 @@ package ninetynine {
     override def leafList = Nil
     override def internalList = Nil
     override def atLevel(level: Int) = Nil
-    override def layoutBinaryTreeHelper(x: Int, y: Int): (Tree[Nothing], Int) =
-      (End, x)
+//    override def layoutBinaryTreeHelper(x: Int, y: Int): (Tree[Nothing], Int) =
+//      (End, x)
     override def toString67 = ""
     override def preOrder = Nil
     override def inOrder = Nil
