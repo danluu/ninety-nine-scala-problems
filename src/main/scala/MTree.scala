@@ -3,7 +3,7 @@ package ninetynine {
   case class MTree[+T](value: T, children: List[MTree[T]]) {
     def this(value: T) = this(value, List())
     override def toString = "M(" + value.toString + " {" + children.map(_.toString).mkString(",") + "})"
-    def nodeCount: Int = children.foldLeft(1)((acc,child) => acc + child.nodeCount)
+    def nodeCount: Int = children.foldLeft(1)((acc, child) => acc + child.nodeCount)
   }
 
   object MTree {
